@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>THE LOOP - Ticket Access</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Montserrat',sans-serif;
+}
+
+body{
+
+    background:
+    radial-gradient(circle at center,#ff008c22 0%,transparent 60%),
+    linear-gradient(135deg,#09000f,#1d001f,#040008);
+
+    height:100vh;
+
+    overflow:hidden;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+}
+
+/* BACKGROUND */
+
+.bg{
+
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+}
+
+.circle{
+
+    position:absolute;
+
+    border:1px solid rgba(255,255,255,0.05);
+
+    border-radius:50%;
+
+    animation:spin 25s linear infinite;
+}
+
+.circle:nth-child(1){
+
+    width:900px;
+    height:900px;
+}
+
+.circle:nth-child(2){
+
+    width:650px;
+    height:650px;
+
+    animation-direction:reverse;
+}
+
+.circle:nth-child(3){
+
+    width:400px;
+    height:400px;
+}
+
+@keyframes spin{
+
+from{
+    transform:rotate(0deg);
+}
+
+to{
+    transform:rotate(360deg);
+}
+
+}
+
+/* MAIN */
+
+.container{
+
+    position:relative;
+
+    z-index:5;
+
+    text-align:center;
+}
+
+.title{
+
+    font-size:5rem;
+
+    font-weight:900;
+
+    letter-spacing:10px;
+
+    margin-bottom:10px;
+
+    text-shadow:
+    0 0 10px #ff00aa,
+    0 0 40px #ff00aa55;
+}
+
+.subtitle{
+
+    color:#ffb4e8;
+
+    letter-spacing:4px;
+
+    margin-bottom:45px;
+}
+
+/* BUTTON */
+
+.ticket-btn{
+
+    padding:20px 48px;
+
+    border:none;
+
+    border-radius:60px;
+
+    background:
+    linear-gradient(90deg,#ff008c,#ff3ab6);
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 0 35px #ff008c55;
+}
+
+.ticket-btn:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:
+    0 0 50px #ff00aa99;
+}
+
+/* MODAL */
+
+.ticket-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,0.92);
+
+    backdrop-filter:blur(10px);
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:100;
+}
+
+/* CLOSE */
+
+.close{
+
+    position:absolute;
+
+    top:25px;
+    right:35px;
+
+    font-size:2rem;
+
+    cursor:pointer;
+
+    z-index:300;
+}
+
+/* WRAPPER */
+
+.ticket-wrapper{
+
+    position:relative;
+
+    width:1200px;
+
+    max-width:95vw;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+}
+
+/* LEFT */
+
+.ticket-left{
+
+    width:78%;
+
+    transition:
+    transform 1.2s ease,
+    opacity 1s ease,
+    filter 1s ease;
+
+    transform-origin:left center;
+
+    z-index:10;
+}
+
+.ticket-left img{
+
+    width:100%;
+
+    display:block;
+}
+
+/* RIGHT */
+
+.ticket-right{
+
+    width:22%;
+
+    position:relative;
+}
+
+.ticket-right img{
+
+    width:100%;
+
+    display:block;
+}
+
+/* TEAR */
+
+.ticket-wrapper.tear .ticket-left{
+
+    transform:
+    rotate(-10deg)
+    translateX(-220px)
+    translateY(40px);
+
+    opacity:0;
+
+    filter:blur(8px);
+}
+
+/* WATCH BUTTON */
+
+.watch-container{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    opacity:0;
+
+    transition:1s ease;
+
+    pointer-events:none;
+
+    z-index:50;
+}
+
+.watch-container.show{
+
+    opacity:1;
+
+    pointer-events:auto;
+}
+
+.watch-btn{
+
+    padding:24px 60px;
+
+    border-radius:60px;
+
+    text-decoration:none;
+
+    color:white;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    background:
+    linear-gradient(90deg,#ff008c,#742fff);
+
+    box-shadow:
+    0 0 40px #ff00aa88;
+
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+0%{
+    transform:scale(1);
+}
+
+50%{
+    transform:scale(1.05);
+}
+
+100%{
+    transform:scale(1);
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.title{
+
+    font-size:3rem;
+
+    letter-spacing:5px;
+}
+
+.subtitle{
+
+    font-size:0.9rem;
+}
+
+.ticket-wrapper{
+
+    flex-direction:row;
+
+    width:100%;
+}
+
+.ticket-left{
+
+    width:78%;
+}
+
+.ticket-right{
+
+    width:22%;
+}
+
+.watch-btn{
+
+    padding:18px 35px;
+
+    font-size:0.9rem;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="bg">
+
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="container">
+
+    <div class="title">THE LOOP</div>
+
+    <div class="subtitle">
+
+        Every Day Starts At 7:30 AM
+
+    </div>
+
+    <button class="ticket-btn" onclick="openTicket()">
+
+        GET YOUR TICKET
+
+    </button>
+
+</div>
+
+<!-- MODAL -->
+
+<div class="ticket-modal" id="ticketModal">
+
+    <div class="close" onclick="closeTicket()">✕</div>
+
+    <div class="ticket-wrapper" id="ticketWrapper">
+
+        <!-- LEFT TICKET -->
+
+        <div class="ticket-left">
+
+            <!-- LEFT IMAGE -->
+
+            <img src="C:\Users\User\Downloads\THE LOOP TICKET - LEFT.png">
+
+        </div>
+
+        <!-- RIGHT TICKET -->
+
+        <div class="ticket-right">
+
+            <!-- RIGHT IMAGE -->
+
+            <img src="C:\Users\User\Downloads\THE LOOP TICKET - RIGHT.png">
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <div class="watch-container" id="watchContainer">
+
+            <a
+            href="https://www.youtube.com/@mgncreative1539"
+            target="_blank"
+            class="watch-btn">
+
+            ENTER THE LOOP
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const modal=document.getElementById("ticketModal");
+
+const wrapper=document.getElementById("ticketWrapper");
+
+const watch=document.getElementById("watchContainer");
+
+function openTicket(){
+
+    modal.style.display="flex";
+}
+
+function closeTicket(){
+
+    modal.style.display="none";
+
+    wrapper.classList.remove("tear");
+
+    watch.classList.remove("show");
+}
+
+wrapper.addEventListener("click",()=>{
+
+    if(!wrapper.classList.contains("tear")){
+
+        wrapper.classList.add("tear");
+
+        setTimeout(()=>{
+
+            watch.classList.add("show");
+
+        },900);
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
