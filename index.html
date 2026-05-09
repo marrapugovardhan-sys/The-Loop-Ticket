@@ -157,6 +157,45 @@ to{
     0 0 50px #ff00aa99;
 }
 
+.trailer-btn{
+
+    display:inline-block;
+
+    padding:12px 28px;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    color:white;
+
+    font-size:0.78rem;
+
+    font-weight:700;
+
+    letter-spacing:2px;
+
+    border:1px solid rgba(255,255,255,0.12);
+
+    background:rgba(255,255,255,0.04);
+
+    backdrop-filter:blur(10px);
+
+    transition:0.3s;
+
+    box-shadow:
+    0 0 15px rgba(255,0,170,0.12);
+}
+
+.trailer-btn:hover{
+
+    transform:scale(1.04);
+
+    background:rgba(255,255,255,0.08);
+
+    box-shadow:
+    0 0 25px rgba(255,0,170,0.28);
+}
 /* MODAL */
 
 .ticket-modal{
@@ -546,7 +585,16 @@ to{
     <button class="ticket-btn" onclick="openTicket()">
         GET YOUR TICKET
     </button>
+<br><br>
 
+<a
+href="https://youtu.be/YOUR_TRAILER_LINK"
+target="_blank"
+class="trailer-btn">
+
+WATCH TRAILER
+
+</a>
 </div>
 
 <div class="ticket-modal" id="ticketModal">
