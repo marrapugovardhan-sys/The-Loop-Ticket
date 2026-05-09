@@ -79,6 +79,45 @@ to{
 
 }
 
+/* GRAIN */
+
+.grain{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:0.08;
+
+    background-image:
+    url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+
+    mix-blend-mode:screen;
+
+    z-index:999;
+}
+
+/* FLASH */
+
+.flash{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#ff00aa;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:9999;
+
+    transition:0.15s;
+}
+
 /* MAIN */
 
 .container{
@@ -122,7 +161,7 @@ to{
     margin-bottom:45px;
 }
 
-/* BUTTON */
+/* BUTTONS */
 
 .ticket-btn{
 
@@ -161,6 +200,8 @@ to{
 
     display:inline-block;
 
+    margin-top:18px;
+
     padding:12px 28px;
 
     border-radius:50px;
@@ -196,6 +237,7 @@ to{
     box-shadow:
     0 0 25px rgba(255,0,170,0.28);
 }
+
 /* MODAL */
 
 .ticket-modal{
@@ -246,8 +288,6 @@ to{
 
     justify-content:center;
     align-items:center;
-}
-    .ticket-wrapper{
 
     cursor:grab;
 }
@@ -255,6 +295,51 @@ to{
 .ticket-wrapper:active{
 
     cursor:grabbing;
+}
+
+/* COUNTDOWN */
+
+.countdown-screen{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(0,0,0,0.88);
+
+    backdrop-filter:blur(12px);
+
+    z-index:200;
+
+    border-radius:20px;
+}
+
+.countdown-title{
+
+    font-size:1rem;
+
+    letter-spacing:6px;
+
+    margin-bottom:25px;
+
+    color:#ffb6ea;
+}
+
+.countdown{
+
+    font-size:3rem;
+
+    font-weight:900;
+
+    text-shadow:
+    0 0 20px #ff00aa88;
 }
 
 /* TAP TEXT */
@@ -294,6 +379,8 @@ to{
     animation:pulseText 2s infinite;
 
     z-index:100;
+
+    display:none;
 }
 
 @keyframes pulseText{
@@ -321,7 +408,7 @@ to{
 
 }
 
-/* LEFT */
+/* TICKETS */
 
 .ticket-left{
 
@@ -330,6 +417,8 @@ to{
     transform-origin:left center;
 
     z-index:10;
+
+    opacity:0;
 }
 
 .ticket-left img{
@@ -337,15 +426,42 @@ to{
     width:100%;
     display:block;
 
+    clip-path: polygon(
+        0% 0%,
+        97% 0%,
+        94% 5%,
+        98% 10%,
+        95% 15%,
+        99% 20%,
+        96% 25%,
+        100% 30%,
+        95% 35%,
+        98% 40%,
+        94% 45%,
+        99% 50%,
+        95% 55%,
+        100% 60%,
+        94% 65%,
+        98% 70%,
+        95% 75%,
+        99% 80%,
+        94% 85%,
+        98% 90%,
+        95% 95%,
+        97% 100%,
+        0% 100%
+    );
 
+    box-shadow:
+    0 0 40px #ff008c44;
 }
-
-/* RIGHT */
 
 .ticket-right{
 
     width:22%;
     position:relative;
+
+    opacity:0;
 }
 
 .ticket-right img{
@@ -354,14 +470,11 @@ to{
     display:block;
 }
 
-/* PAPER TEAR */
-
-/* REALISTIC PAPER TEAR */
+/* TEAR ANIMATION */
 
 .ticket-wrapper.tear .ticket-left{
 
     animation:realPaperTear 1.6s cubic-bezier(0.22,1,0.36,1) forwards;
-
 }
 
 @keyframes realPaperTear{
@@ -379,8 +492,6 @@ to{
     filter:blur(0px);
 }
 
-/* initial pull */
-
 15%{
 
     transform:
@@ -389,8 +500,6 @@ to{
     rotate(-1deg);
 
 }
-
-/* resistance */
 
 28%{
 
@@ -401,8 +510,6 @@ to{
 
 }
 
-/* ripping starts */
-
 42%{
 
     transform:
@@ -411,8 +518,6 @@ to{
     rotate(-5deg);
 
 }
-
-/* aggressive tear */
 
 60%{
 
@@ -424,8 +529,6 @@ to{
 
 }
 
-/* flying away */
-
 82%{
 
     transform:
@@ -436,8 +539,6 @@ to{
 
     opacity:0.75;
 }
-
-/* gone */
 
 100%{
 
@@ -538,10 +639,6 @@ to{
     font-size:0.9rem;
 }
 
-.ticket-wrapper{
-    width:100%;
-}
-
 .watch-btn{
     padding:18px 35px;
     font-size:0.9rem;
@@ -550,6 +647,10 @@ to{
 .tear-text{
     font-size:0.7rem;
     top:-50px;
+}
+
+.countdown{
+    font-size:1.6rem;
 }
 
 }
@@ -568,6 +669,10 @@ to{
 
 </div>
 
+<div class="grain"></div>
+
+<div class="flash" id="flash"></div>
+
 <div class="container">
 
     <div class="small-title">
@@ -585,16 +690,18 @@ to{
     <button class="ticket-btn" onclick="openTicket()">
         GET YOUR TICKET
     </button>
-<br><br>
 
-<a
-href="https://youtu.be/YOUR_TRAILER_LINK"
-target="_blank"
-class="trailer-btn">
+    <br>
 
-WATCH TRAILER
+    <a
+    href="https://youtu.be/YOUR_TRAILER_LINK"
+    target="_blank"
+    class="trailer-btn">
 
-</a>
+    WATCH THE TRAILER
+
+    </a>
+
 </div>
 
 <div class="ticket-modal" id="ticketModal">
@@ -603,10 +710,27 @@ WATCH TRAILER
 
     <div class="ticket-wrapper" id="ticketWrapper">
 
+        <!-- COUNTDOWN -->
+
+        <div class="countdown-screen" id="countdownScreen">
+
+            <div class="countdown-title">
+                THE LOOP BEGINS IN
+            </div>
+
+            <div class="countdown" id="countdown">
+                00 : 00 : 00 : 00
+            </div>
+
+        </div>
+
+        <!-- TEAR TEXT -->
+
         <div class="tear-text">
-            <p style="font-size: 7px;">
             TAP TO TEAR THE TICKET
         </div>
+
+        <!-- TICKETS -->
 
         <div class="ticket-left">
 
@@ -620,6 +744,8 @@ WATCH TRAILER
 
         </div>
 
+        <!-- BUTTON -->
+
         <div class="watch-container" id="watchContainer">
 
             <a
@@ -627,7 +753,7 @@ WATCH TRAILER
             target="_blank"
             class="watch-btn">
 
-            ENTER THE LOOP
+            BREAK THE LOOP
 
             </a>
 
@@ -637,11 +763,17 @@ WATCH TRAILER
 
 </div>
 
-<!-- SOUND -->
+<!-- AUDIO -->
 
 <audio id="tearSound" src="TEAR.mp3"></audio>
 
+<audio id="bgMusic" autoplay loop>
+    <source src="AMBIENCE.mp3" type="audio/mpeg">
+</audio>
+
 <script>
+
+/* ELEMENTS */
 
 const modal=document.getElementById("ticketModal");
 
@@ -649,10 +781,85 @@ const wrapper=document.getElementById("ticketWrapper");
 
 const watch=document.getElementById("watchContainer");
 
+const bgMusic=document.getElementById("bgMusic");
+
+const flash=document.getElementById("flash");
+
+const countdown=document.getElementById("countdown");
+
+const countdownScreen=document.getElementById("countdownScreen");
+
+const leftTicket=document.querySelector(".ticket-left");
+
+const rightTicket=document.querySelector(".ticket-right");
+
+/* AUDIO */
+
+bgMusic.volume=0.18;
+
+/* RELEASE DATE */
+
+const releaseDate = new Date("May 16, 2026 07:30:00").getTime();
+
+/* TIMER */
+
+const timer=setInterval(()=>{
+
+    const now=new Date().getTime();
+
+    const distance=releaseDate-now;
+
+    const days=Math.floor(distance/(1000*60*60*24));
+
+    const hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+
+    const minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+
+    const seconds=Math.floor((distance%(1000*60))/1000);
+
+    countdown.innerHTML=
+    days+"d : "+
+    hours+"h : "+
+    minutes+"m : "+
+    seconds+"s";
+
+    if(distance<0){
+
+        clearInterval(timer);
+
+        countdownScreen.style.display="none";
+
+        leftTicket.style.opacity="1";
+
+        rightTicket.style.opacity="1";
+
+        document.querySelector(".tear-text").style.display="block";
+    }
+
+},1000);
+
+/* OPEN */
+
 function openTicket(){
 
     modal.style.display="flex";
+
+    bgMusic.play();
+
+    if(new Date().getTime() > releaseDate){
+
+        countdownScreen.style.display="none";
+
+        leftTicket.style.opacity="1";
+
+        rightTicket.style.opacity="1";
+
+        document.querySelector(".tear-text").style.display="block";
+    }
+
 }
+
+/* CLOSE */
 
 function closeTicket(){
 
@@ -662,10 +869,16 @@ function closeTicket(){
 
     watch.classList.remove("show");
 
-    document.querySelector(".tear-text").style.display="block";
 }
 
+/* TEAR */
+
 wrapper.addEventListener("click",()=>{
+
+    if(new Date().getTime() < releaseDate){
+
+        return;
+    }
 
     if(!wrapper.classList.contains("tear")){
 
@@ -673,13 +886,21 @@ wrapper.addEventListener("click",()=>{
 
         document.getElementById("tearSound").play();
 
+        flash.style.opacity="0.35";
+
+        setTimeout(()=>{
+
+            flash.style.opacity="0";
+
+        },120);
+
         wrapper.classList.add("tear");
 
         setTimeout(()=>{
 
             watch.classList.add("show");
 
-        },900);
+        },1000);
 
     }
 
