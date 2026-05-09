@@ -39,39 +39,30 @@ body{
 /* BACKGROUND */
 
 .bg{
-
     position:absolute;
     inset:0;
     overflow:hidden;
 }
 
 .circle{
-
     position:absolute;
-
     border:1px solid rgba(255,255,255,0.05);
-
     border-radius:50%;
-
     animation:spin 25s linear infinite;
 }
 
 .circle:nth-child(1){
-
     width:900px;
     height:900px;
 }
 
 .circle:nth-child(2){
-
     width:650px;
     height:650px;
-
     animation-direction:reverse;
 }
 
 .circle:nth-child(3){
-
     width:400px;
     height:400px;
 }
@@ -91,22 +82,16 @@ to{
 /* MAIN */
 
 .container{
-
     position:relative;
-
     z-index:5;
-
     text-align:center;
 }
 
 .title{
 
     font-size:5rem;
-
     font-weight:900;
-
     letter-spacing:10px;
-
     margin-bottom:10px;
 
     text-shadow:
@@ -117,9 +102,7 @@ to{
 .subtitle{
 
     color:#ffb4e8;
-
     letter-spacing:4px;
-
     margin-bottom:45px;
 }
 
@@ -198,9 +181,6 @@ to{
 
 .ticket-wrapper{
 
-  <div class="tear-text">
-    TAP TO TEAR THE TICKET
-</div>
     position:relative;
 
     width:1200px;
@@ -211,6 +191,70 @@ to{
 
     justify-content:center;
     align-items:center;
+}
+
+/* TAP TEXT */
+
+.tear-text{
+
+    position:absolute;
+
+    top:-70px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+    padding:14px 28px;
+
+    border-radius:50px;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(8px);
+
+    border:1px solid rgba(255,255,255,0.12);
+
+    box-shadow:
+    0 0 25px #ff00aa33;
+
+    animation:pulseText 2s infinite;
+
+    z-index:100;
+}
+
+@keyframes pulseText{
+
+0%{
+    opacity:0.7;
+    transform:
+    translateX(-50%)
+    scale(1);
+}
+
+50%{
+    opacity:1;
+    transform:
+    translateX(-50%)
+    scale(1.05);
+}
+
+100%{
+    opacity:0.7;
+    transform:
+    translateX(-50%)
+    scale(1);
+}
+
 }
 
 /* LEFT */
@@ -232,7 +276,6 @@ to{
 .ticket-left img{
 
     width:100%;
-
     display:block;
 }
 
@@ -241,14 +284,12 @@ to{
 .ticket-right{
 
     width:22%;
-
     position:relative;
 }
 
 .ticket-right img{
 
     width:100%;
-
     display:block;
 }
 
@@ -291,7 +332,6 @@ to{
 .watch-container.show{
 
     opacity:1;
-
     pointer-events:auto;
 }
 
@@ -339,39 +379,26 @@ to{
 @media(max-width:768px){
 
 .title{
-
     font-size:3rem;
-
     letter-spacing:5px;
 }
 
 .subtitle{
-
     font-size:0.9rem;
 }
 
 .ticket-wrapper{
-
-    flex-direction:row;
-
     width:100%;
 }
 
-.ticket-left{
-
-    width:78%;
-}
-
-.ticket-right{
-
-    width:22%;
-}
-
 .watch-btn{
-
     padding:18px 35px;
-
     font-size:0.9rem;
+}
+
+.tear-text{
+    font-size:0.7rem;
+    top:-50px;
 }
 
 }
@@ -382,8 +409,6 @@ to{
 
 <body>
 
-<!-- BACKGROUND -->
-
 <div class="bg">
 
     <div class="circle"></div>
@@ -392,27 +417,19 @@ to{
 
 </div>
 
-<!-- MAIN -->
-
 <div class="container">
 
     <div class="title">THE LOOP</div>
 
     <div class="subtitle">
-
         Every Day Starts At 7:30 AM
-
     </div>
 
     <button class="ticket-btn" onclick="openTicket()">
-
         GET YOUR TICKET
-
     </button>
 
 </div>
-
-<!-- MODAL -->
 
 <div class="ticket-modal" id="ticketModal">
 
@@ -420,27 +437,21 @@ to{
 
     <div class="ticket-wrapper" id="ticketWrapper">
 
-        <!-- LEFT TICKET -->
+        <div class="tear-text">
+            TAP TO TEAR THE TICKET
+        </div>
 
         <div class="ticket-left">
-
-            <!-- LEFT IMAGE -->
 
             <img src="ticket-left.png">
 
         </div>
 
-        <!-- RIGHT TICKET -->
-
         <div class="ticket-right">
-
-            <!-- RIGHT IMAGE -->
 
             <img src="ticket-right.png">
 
         </div>
-
-        <!-- BUTTON -->
 
         <div class="watch-container" id="watchContainer">
 
@@ -479,11 +490,15 @@ function closeTicket(){
     wrapper.classList.remove("tear");
 
     watch.classList.remove("show");
+
+    document.querySelector(".tear-text").style.display="block";
 }
 
 wrapper.addEventListener("click",()=>{
 
     if(!wrapper.classList.contains("tear")){
+
+        document.querySelector(".tear-text").style.display="none";
 
         wrapper.classList.add("tear");
 
