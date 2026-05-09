@@ -87,11 +87,25 @@ to{
     text-align:center;
 }
 
+.small-title{
+
+    color:#ffb4e8;
+
+    letter-spacing:3px;
+
+    margin-bottom:15px;
+
+    font-size:0.9rem;
+}
+
 .title{
 
     font-size:5rem;
+
     font-weight:900;
+
     letter-spacing:10px;
+
     margin-bottom:10px;
 
     text-shadow:
@@ -102,7 +116,9 @@ to{
 .subtitle{
 
     color:#ffb4e8;
+
     letter-spacing:4px;
+
     margin-bottom:45px;
 }
 
@@ -263,11 +279,6 @@ to{
 
     width:78%;
 
-    transition:
-    transform 1.2s ease,
-    opacity 1s ease,
-    filter 1s ease;
-
     transform-origin:left center;
 
     z-index:10;
@@ -277,6 +288,32 @@ to{
 
     width:100%;
     display:block;
+
+    clip-path: polygon(
+        0% 0%,
+        97% 0%,
+        94% 5%,
+        98% 10%,
+        95% 15%,
+        99% 20%,
+        96% 25%,
+        100% 30%,
+        95% 35%,
+        98% 40%,
+        94% 45%,
+        99% 50%,
+        95% 55%,
+        100% 60%,
+        94% 65%,
+        98% 70%,
+        95% 75%,
+        99% 80%,
+        94% 85%,
+        98% 90%,
+        95% 95%,
+        97% 100%,
+        0% 100%
+    );
 }
 
 /* RIGHT */
@@ -293,18 +330,61 @@ to{
     display:block;
 }
 
-/* TEAR */
+/* PAPER TEAR */
 
 .ticket-wrapper.tear .ticket-left{
 
+    animation:paperTear 1.2s forwards ease-in-out;
+}
+
+@keyframes paperTear{
+
+0%{
+
     transform:
-    rotate(-10deg)
-    translateX(-220px)
-    translateY(40px);
+    rotate(0deg)
+    translateX(0px);
+
+    opacity:1;
+}
+
+20%{
+
+    transform:
+    rotate(-2deg)
+    translateX(-10px);
+
+}
+
+40%{
+
+    transform:
+    rotate(3deg)
+    translateX(20px);
+
+}
+
+60%{
+
+    transform:
+    rotate(-8deg)
+    translateX(-80px)
+    translateY(20px);
+
+}
+
+100%{
+
+    transform:
+    rotate(-15deg)
+    translateX(-260px)
+    translateY(80px);
 
     opacity:0;
 
     filter:blur(8px);
+}
+
 }
 
 /* WATCH BUTTON */
@@ -378,6 +458,10 @@ to{
 
 @media(max-width:768px){
 
+.small-title{
+    font-size:0.7rem;
+}
+
 .title{
     font-size:3rem;
     letter-spacing:5px;
@@ -418,8 +502,14 @@ to{
 </div>
 
 <div class="container">
-    <div class="subtitle">An MGN Creative Original</div>
-    <div class="title">THE LOOP</div>
+
+    <div class="small-title">
+        AN MGN CREATIVE ORIGINAL
+    </div>
+
+    <div class="title">
+        THE LOOP
+    </div>
 
     <div class="subtitle">
         Every Day Starts At 7:30 AM
@@ -438,7 +528,6 @@ to{
     <div class="ticket-wrapper" id="ticketWrapper">
 
         <div class="tear-text">
-            <p style="font-size: 7px;">
             TAP TO TEAR THE TICKET
         </div>
 
@@ -471,6 +560,10 @@ to{
 
 </div>
 
+<!-- SOUND -->
+
+<audio id="tearSound" src="TEAR.mp3"></audio>
+
 <script>
 
 const modal=document.getElementById("ticketModal");
@@ -500,6 +593,8 @@ wrapper.addEventListener("click",()=>{
     if(!wrapper.classList.contains("tear")){
 
         document.querySelector(".tear-text").style.display="none";
+
+        document.getElementById("tearSound").play();
 
         wrapper.classList.add("tear");
 
