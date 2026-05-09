@@ -308,57 +308,100 @@ to{
 
 /* PAPER TEAR */
 
+/* REALISTIC PAPER TEAR */
+
 .ticket-wrapper.tear .ticket-left{
 
-    animation:paperTear 1.2s forwards ease-in-out;
+    animation:realPaperTear 1.6s cubic-bezier(0.22,1,0.36,1) forwards;
+
 }
 
-@keyframes paperTear{
+@keyframes realPaperTear{
 
 0%{
 
     transform:
+    translateX(0px)
+    translateY(0px)
     rotate(0deg)
-    translateX(0px);
+    scale(1);
 
     opacity:1;
+
+    filter:blur(0px);
 }
 
-20%{
+/* initial pull */
+
+15%{
 
     transform:
-    rotate(-2deg)
-    translateX(-10px);
+    translateX(-8px)
+    translateY(2px)
+    rotate(-1deg);
 
 }
 
-40%{
+/* resistance */
+
+28%{
 
     transform:
-    rotate(3deg)
-    translateX(20px);
+    translateX(18px)
+    translateY(-2px)
+    rotate(2deg);
 
 }
+
+/* ripping starts */
+
+42%{
+
+    transform:
+    translateX(-35px)
+    translateY(10px)
+    rotate(-5deg);
+
+}
+
+/* aggressive tear */
 
 60%{
 
     transform:
-    rotate(-8deg)
-    translateX(-80px)
-    translateY(20px);
+    translateX(-120px)
+    translateY(35px)
+    rotate(-12deg)
+    scale(1.02);
 
 }
+
+/* flying away */
+
+82%{
+
+    transform:
+    translateX(-240px)
+    translateY(85px)
+    rotate(-20deg)
+    scale(1.05);
+
+    opacity:0.75;
+}
+
+/* gone */
 
 100%{
 
     transform:
-    rotate(-15deg)
-    translateX(-260px)
-    translateY(80px);
+    translateX(-380px)
+    translateY(140px)
+    rotate(-32deg)
+    scale(1.08);
 
     opacity:0;
 
-    filter:blur(8px);
+    filter:blur(10px);
 }
 
 }
